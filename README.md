@@ -1,2 +1,2 @@
 # captchas
-Création captchas custom
+création de captchas customs.
