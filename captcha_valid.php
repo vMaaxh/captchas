@@ -1,19 +1,28 @@
 <?php
-	echo '<h1 class="green">Bienvenue</h1>';
+	session_start();
+	if(!isset($_SESSION['valid']))
+	{
+		header('Location: index.php');
+	}
 ?>
-
-<a href="destroy_session.php">Deconnexion</a>
-
-<style type="text/css">
-	@font-face
-	{
-		font-family: 'Montserrat-Bold';
-		src: url('fonts/Montserrat-Bold.ttf');
-	}
-	.green
-	{
-		color: #27ae60;
-		font-size: 1.2em;
-		font-family: Montserrat-Bold;
-	}
-</style>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Captcha validé</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="page valid">
+		<header>
+			<div class="logo">
+				<h1>Bravo</h1>
+				<h3>Vous êtes humain !</h3>
+			</div>
+			<div class="menu">
+				<a href="destroy_session.php">Deconnexion</a>
+			</div>
+		</header>
+	</div>
+</body>
+</html>
