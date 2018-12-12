@@ -10,6 +10,21 @@ $color = imagecolorallocate($image, 44, 62, 80);
 
 $font = 'fonts/Montserrat-Bold.ttf';
 
+$fontSize = 20; 
+
+$taille = mt_rand(4,9);
+$_SESSION['length_captcha'] = $taille;
+
+$x = 0;
+
+$y = 50;
+
+$espacement = 30;
+
+$angle = -30;
+
+$angleSuivant = 20;
+
 function getCode($length, $chars)
 {
 	$code = null;
@@ -20,28 +35,29 @@ function getCode($length, $chars)
 	return $code;
 };
 
-$code = getCode(5, $chaine);
+$code = getCode($taille, $chaine);
 
-$char1 = substr($code, 0,1);
-$char2 = substr($code, 1,1);
-$char3 = substr($code, 2,1);
-$char4 = substr($code, 3,1);
-$char5 = substr($code, 4,1);
-
-imagettftext($image, 20, -50, 80, 50, $color, $font, $char1);
-imagettftext($image, 20, 20, 120, 50, $color, $font, $char2);
-imagettftext($image, 20, -35, 150, 50, $color, $font, $char3);
-imagettftext($image, 20, 25, 180, 50, $color, $font, $char4);
-imagettftext($image, 20, -15, 210, 50, $color, $font, $char5);
-
-$_SESSION['chars1'] = $char1;
-$_SESSION['chars2'] = $char2;
-$_SESSION['chars3'] = $char3;
-$_SESSION['chars4'] = $char4;
-$_SESSION['chars5'] = $char5;
+for ($j=0; $j <= (strlen($code)-1) ; $j++) 
+{ 
+	if ($angleSuivant == 20) 
+	{
+		$angleSuivant = -20;
+	}
+	else
+	{
+		$angleSuivant = 20;
+	}
+	$char = substr($code, $j,1);
+	$x = $x + $espacement;
+	$angle = $angle + $angleSuivant;
+	imagettftext($image, $fontSize , $angle, $x, $y, $color, $font, $char);	
+}
 
 header('Content-Type: image/png');
 imagepng($image);
 imagedestroy($image);
+
+$_SESSION['code_captcha'] = $code;
+
 
 ?>

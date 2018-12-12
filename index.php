@@ -14,7 +14,7 @@
 		<?php echo "<img src='script_captchas.php' alt='captchas'/>"; ?>
 		<form method="post">
 			<div class="verification">
-				<input type="text" name="captcha" id="captcha" maxlength="5">
+				<input type="text" name="captcha" id="captcha">
 				<label for="captcha">Vérification</label>
 			</div>
 			<span class="submit-effect"><input type="submit" name="submit" class="submit"></span>
@@ -22,9 +22,7 @@
 		<?php
 				if (isset($_POST['submit'])) 
 				{
-					$reponse = strtoupper(trim($_POST['captcha']));
-					$bonne_rep = $_SESSION['chars1'].$_SESSION['chars2'].$_SESSION['chars3'].$_SESSION['chars4'].$_SESSION['chars5'];
-					if ($reponse != $bonne_rep) 
+					if (strtoupper(trim($_POST['captcha'])) != $_SESSION['code_captcha']) 
 					{
 						echo '<br><p class="red-error">Mauvais captcha, veuillez réessayer !</p>';
 					}
